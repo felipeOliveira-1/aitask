@@ -34,7 +34,7 @@ export async function analyzePriority(
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "o1-mini",
       messages: [
         {
           role: "system",
