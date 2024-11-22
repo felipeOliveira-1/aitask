@@ -208,6 +208,13 @@ function App() {
           </div>
         </ErrorBoundary>
       </main>
+
+      {/* Rodapé */}
+      <footer className="bg-white border-t border-gray-200 py-4">
+        <div className="text-center text-gray-600">
+          Feito por <a href="https://fstech.digital/" className="text-blue-600 hover:underline">FsTech</a>
+        </div>
+      </footer>
     </div>
   );
 }
