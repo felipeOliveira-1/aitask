@@ -38,11 +38,11 @@ export async function analyzePriority(
       messages: [
         {
           role: "system",
-          content: `You are an AI task prioritizer. Analyze tasks and determine their priority (1-3) based on alignment with the user's long-term goal. Your answers must be give in pt-br.
+          content: `You are an AI task prioritizer. Analyze tasks and determine their priority (1-3) based on alignment with the user's long-term goal. Give your answers according to the user's language.
             - Priority 3: Highly aligned and urgent
             - Priority 2: Moderately aligned or medium urgency
             - Priority 1: Low alignment or not urgent
-            Remember to give your answers alwaysin pt-br. Provide clear, concise reasoning for the priority level.`
+            Remember to give your answers according to the user's language. Provide clear, concise reasoning for the priority level.`
         },
         {
           role: "user",
