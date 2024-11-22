@@ -59,7 +59,7 @@ function App() {
       <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
         <div className="text-center mb-8">
           <img src={logo} alt="AI Task Prioritizer Logo" className="w-32 h-32 mx-auto mb-4" />
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to AI Task Prioritizer</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to AI Task</h1>
           <p className="text-gray-700">Prioritize your tasks effectively and achieve your long-term goals with AI assistance.</p>
         </div>
         <button onClick={signInWithGoogle} className="bg-blue-600 text-white py-2 px-6 rounded-full hover:bg-blue-700 transition">
