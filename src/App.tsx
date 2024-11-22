@@ -1,3 +1,4 @@
+import "./lib/firebaseConfig";
 import React, { useState, useEffect } from 'react';
 import { Brain, LayoutDashboard, Target } from 'lucide-react';
 import { TaskInput } from './components/TaskInput';
@@ -7,6 +8,33 @@ import { Task, Goal } from './types';
 import { analyzePriority } from './lib/openai';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import confetti from 'canvas-confetti';
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+
+const provider = new GoogleAuthProvider();
+const auth = getAuth();
+
+const signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential?.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    console.log('User Info:', user);
+  } catch (error) {
+    console.error('Error during sign-in:', error);
+  }
+};
+
+const handleSignOut = async () => {
+  try {
+    await signOut(auth);
+    console.log('User signed out successfully');
+  } catch (error) {
+    console.error('Error signing out:', error);
+  }
+};
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -14,6 +42,25 @@ function App() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log('Auth state changed:', user);
+      setIsAuthenticated(!!user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (!isAuthenticated) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <button onClick={signInWithGoogle} className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+          Sign in with Google
+        </button>
+      </div>
+    );
+  }
 
   const handleAddTask = async (title: string, description: string) => {
     setIsAnalyzing(true);
@@ -85,7 +132,7 @@ function App() {
   const WelcomeMessage = () => (
     <Modal onClose={handleDismissWelcome}>
       <h2 className="text-xl font-semibold">Welcome to the AI Task Prioritizer!</h2>
-      <p className="mt-2">To get started, please set your long-term goal.</p>
+      <p className="mt-2">To get started, please set your long-term goal.</p>      
     </Modal>
   );
 
@@ -101,6 +148,9 @@ function App() {
           <div className="flex items-center gap-2">
             <Brain className="text-blue-600" size={32} />
             <h1 className="text-2xl font-bold text-gray-900">AI Task Prioritizer</h1>
+            <button onClick={handleSignOut} className="ml-auto bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">
+              Sign Out
+            </button>
           </div>
         </div>
       </header>
