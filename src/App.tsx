@@ -1,3 +1,4 @@
+import logo from './assets/logo.png';
 import "./lib/firebaseConfig";
 import React, { useState, useEffect } from 'react';
 import { Brain, LayoutDashboard, Target } from 'lucide-react';
@@ -9,6 +10,7 @@ import { analyzePriority } from './lib/openai';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import confetti from 'canvas-confetti';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
@@ -54,8 +56,13 @@ function App() {
 
   if (!isAuthenticated) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <button onClick={signInWithGoogle} className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+      <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
+        <div className="text-center mb-8">
+          <img src={logo} alt="AI Task Prioritizer Logo" className="w-32 h-32 mx-auto mb-4" />
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to AI Task Prioritizer</h1>
+          <p className="text-gray-700">Prioritize your tasks effectively and achieve your long-term goals with AI assistance.</p>
+        </div>
+        <button onClick={signInWithGoogle} className="bg-blue-600 text-white py-2 px-6 rounded-full hover:bg-blue-700 transition">
           Sign in with Google
         </button>
       </div>
