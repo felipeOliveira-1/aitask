@@ -147,7 +147,7 @@ function App() {
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center gap-2">
             <Brain className="text-blue-600" size={32} />
-            <h1 className="text-2xl font-bold text-gray-900">AI Task Prioritizer</h1>
+            <h1 className="text-2xl font-bold text-gray-900">AI Task</h1>
             <button onClick={handleSignOut} className="ml-auto bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">
               Sign Out
             </button>
